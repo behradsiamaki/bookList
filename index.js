@@ -4,6 +4,7 @@ const checkBox = document.querySelector("#hide input");
 const heading = document.querySelectorAll(".title")[1];
 const ul = document.querySelector("ul");
 const spanDelete = `<span class="delete"> حذف</span>`;
+const inputSearch = document.querySelector('#search-books input');
 
 inputText.value = "";
 
@@ -76,6 +77,17 @@ checkBox.addEventListener("click", function (e) {
     ul.style.display = "initial";
   }
 });
+
+inputSearch.addEventListener('keyup', function(e){
+    for(let book of ul.children){
+        if(book.firstElementChild.textContent.indexOf(inputSearch.value) !== -1){
+            book.style.display = 'initial';
+        }else{
+            book.style.display = 'none';
+
+        }
+    }
+})
 
 function removeFromLocalStorage(task) {
   let tasks;
