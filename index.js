@@ -25,6 +25,13 @@ link.addEventListener("click", function (e) {
   e.preventDefault();
 });
 
+ul.addEventListener("click", function (e) {
+  if (e.target.className === "delete") {
+    e.target.parentElement.remove();
+    removeFromLocalStorage(e.target.parentElement.children[0].textContent);
+  }
+});
+
 document.addEventListener("DOMContentLoaded", function (e) {
   let tasks;
   if (localStorage.getItem("tasks") === null) {
@@ -69,3 +76,23 @@ checkBox.addEventListener("click", function (e) {
     ul.style.display = "initial";
   }
 });
+
+function removeFromLocalStorage(task) {
+  let tasks;
+  if (localStorage.getItem("tasks") === null) {
+    tasks = [];
+  } else {
+    tasks = localStorage.getItem("tasks").split(",");
+  }
+
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i] === task) {
+      tasks.splice(i, 1);
+    }
+  }
+  if (tasks.length === 0) {
+    localStorage.clear();
+  } else {
+    localStorage.setItem("tasks", tasks);
+  }
+}
